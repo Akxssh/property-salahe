@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 
-export function NavbarMain() {
+export function NavbarMain({ className }: { className?: string }) {
   const navItems = [
     {
       name: "Features",
@@ -31,7 +31,7 @@ export function NavbarMain() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <Navbar className="fixed top-0 mt-2">
+    <Navbar className={className}>
       {/* Desktop Navigation */}
       <NavBody>
         <NavbarLogo />
