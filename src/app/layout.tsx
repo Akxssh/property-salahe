@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     description: "Find your next property",
     url: 'https://example.com', // replace with your site URL
     siteName: 'Property Salahe',
-    images: [
-      {
-        url: 'https://thumbs.dreamstime.com/b/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg?w=768', // replace with your preview image
-        width: 1200,
-        height: 630,
-      },
-    ],
+images: [
+  {
+    url: 'https://thumbs.dreamstime.com/b/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg',
+    width: 1200,
+    height: 630,
+  },
+],
     type: 'website',
   },
 }
