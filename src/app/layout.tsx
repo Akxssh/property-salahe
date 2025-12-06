@@ -15,7 +15,24 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Property salahe",
   description: "Find your next property",
-};
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: "Property salahe",
+    description: "Find your next property",
+    url: 'https://example.com', // replace with your site URL
+    siteName: 'Property Salahe',
+    images: [
+      {
+        url: 'https://example.com/preview-image.png', // replace with your preview image
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: 'website',
+  },
+}
 
 export default function RootLayout({
   children,
