@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: 'Property Salahe',
     images: [
       {
-        url: 'https://example.com/preview-image.png', // replace with your preview image
+        url: '/favicon.ico', // replace with your preview image
         width: 1200,
         height: 630,
       },
