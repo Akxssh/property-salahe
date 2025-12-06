@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: 'Property Salahe',
     images: [
       {
-        url: '/favicon.ico', // replace with your preview image
+        url: 'https://thumbs.dreamstime.com/b/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg?w=768', // replace with your preview image
         width: 1200,
         height: 630,
       },
