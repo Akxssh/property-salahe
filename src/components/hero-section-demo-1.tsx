@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-
+import {Button} from "@/components/ui/button"
 export default function HeroSectionOne() {
   return (
     <div className="px-4 py-10 md:py-20">
@@ -79,14 +79,58 @@ export default function HeroSectionOne() {
         className="relative z-10 mt-20 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 flex flex-col items-center justify-center gap-2"
       >
         <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-<div className="mx-auto max-w-4xl">
+<div className="relative mx-auto max-w-4xl">
   <video
+    id="founderVid"
     src="/founder_intro_small.mp4"
-    controls
-    autoPlay={true}
-    loop
+    autoPlay
+    muted
+    playsInline
     className="w-full h-auto object-cover"
+    onPlay={() => {
+      const btn = document.getElementById("startBtn")
+      btn.style.opacity = "0.0"   // still clickable
+    }}
+    onPause={() => {
+      const btn = document.getElementById("startBtn")
+      btn.style.opacity = "1"
+    }}
+    onEnded={() => {
+      const btn = document.getElementById("startBtn")
+      btn.style.opacity = "1"
+    }}
   />
+
+  <Button
+    id="startBtn"
+    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/70 px-6 py-3 rounded-xl text-black scale-[2] transition-opacity"
+    onClick={() => {
+      const v = document.getElementById("founderVid")
+
+      if (v.paused) {
+        // v.currentTime = 0
+        v.muted = false
+        v.play()
+      } else {
+        v.pause()
+      }
+    }}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-play-icon lucide-play"
+    >
+      <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
+    </svg>
+  </Button>
 </div>
         </div>
       </motion.div>
