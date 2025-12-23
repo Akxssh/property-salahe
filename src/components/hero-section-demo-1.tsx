@@ -8,13 +8,6 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 export default function HeroSectionOne() {
   const [open, setOpen] = useState(false);
-  const handleOpenLogic = (e: any) => {
-    if (e.target.value.trim().length == 0) {
-      setOpen(false)
-    } else {
-      setOpen(true)
-    }
-  }
   return (
     <div className="px-4 py-10 md:py-20">
       <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-700 md:text-4xl lg:text-7xl dark:text-slate-300">
@@ -73,7 +66,8 @@ export default function HeroSectionOne() {
             <Input
               placeholder="Search property..."
               className="shadow-md p-4 max-w-xl"
-              onChange={handleOpenLogic}
+              onFocus={() => setOpen(true)}
+              onBlur={() => setOpen(false)}
             />
             {open ? <Card className="w-full p-4 mt-1 rounded-md"></Card> : ""}
           </div>
@@ -127,15 +121,15 @@ export default function HeroSectionOne() {
               className="w-full h-auto object-cover"
               onPlay={() => {
                 const btn = document.getElementById("startBtn");
-                btn!.style.opacity = "0.0"; // still clickable
+                btn.style.opacity = "0.0"; // still clickable
               }}
               onPause={() => {
                 const btn = document.getElementById("startBtn");
-                btn!.style.opacity = "1";
+                btn.style.opacity = "1";
               }}
               onEnded={() => {
                 const btn = document.getElementById("startBtn");
-                btn!.style.opacity = "1";
+                btn.style.opacity = "1";
               }}
             />
 
@@ -143,12 +137,14 @@ export default function HeroSectionOne() {
               id="startBtn"
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  px-6 py-3 rounded-md text-black scale-[2] bg-white"
               onClick={() => {
-                const v = document.getElementById("video") as HTMLVideoElement | null;
+                const v = document.getElementById("founderVid");
 
-                if (v) {
-                  v.paused;        // ok
-                  v.currentTime = 0;
-                  v.muted = true;
+                if (v.paused) {
+                  // v.currentTime = 0
+                  v.muted = false;
+                  v.play();
+                } else {
+                  v.pause();
                 }
               }}
             >

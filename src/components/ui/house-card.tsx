@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import { Bed, Bath, Ruler, Phone } from "lucide-react";
+import { Bed, Bath, Ruler, Phone, TrendingUp } from "lucide-react";
 import { CookingPot } from "lucide-react"
 type Props = {
   name: string;
@@ -12,10 +12,11 @@ type Props = {
   sqft: number;
   agentName: string;
   agentPhone: string;
-  youtubeVideoUrl: string
   kitchens: number
-  newListing: boolean
+  newListing?: boolean
+  youtubeVideoUrl?: string
   imageUrl: string
+  trending?: Boolean
 };
 
 export default function HouseCard({
@@ -25,13 +26,13 @@ export default function HouseCard({
   price,
   beds,
   baths,
-  sqft,
-  agentName,
+  sqft, agentName,
   agentPhone,
   youtubeVideoUrl,
   newListing,
   kitchens,
-  imageUrl
+  imageUrl,
+  trending
 }: Props) {
 
   // Function to format price into Indian numbering system (lakhs, crores)
@@ -58,8 +59,9 @@ export default function HouseCard({
 
         {/* Tags overlay on top-left of image */}
         <div className="absolute top-2 left-2 flex gap-2  -mt-4">
-          {newListing === true ? <span className="bg-black text-white text-xs px-2 py-1 rounded-full">New Listing</span> : null}
-          <span className="bg-white text-black text-xs px-2 py-1 rounded-full">{financeType}</span>
+          {trending === true ? <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full flex justify-center items-center gap-1"><TrendingUp />Trending</span> : null}
+          {newListing === true ? <span className="bg-black text-white text-xs px-2  flex justify-center items-center gap-1 py-1 rounded-full">New Listing</span> : null}
+          <span className="bg-white text-black text-xs px-2 py-1 rounded-full flex justify-center items-center gap-1">{financeType}</span>
         </div>
       </div>
 
@@ -96,7 +98,11 @@ export default function HouseCard({
 
         {/* Action buttons: Schedule Tour & View Details */}
         <div className="flex items-center justify-center gap-2 -mb-6  mt-6">
-          {youtubeVideoUrl === true ? <button className="flex-1 border border-gray-300 rounded-md py-2 text-sm">Watch tour</button> : null}
+          {youtubeVideoUrl && (
+            <button className="flex-1 border border-gray-300 rounded-md py-2 text-sm">
+              Watch tour
+            </button>
+          )}
           <button className="flex-1 bg-black text-white rounded-md py-2 text-sm">View Details</button>
         </div>
 
