@@ -234,7 +234,13 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <img src="/search.png" alt="logo" width={30} height={30} />
+      <img
+        src="/favicon.ico"
+        alt="logo"
+        width={30}
+        height={30}
+        className="scale-200"
+      />
       <span className="font-medium text-black dark:text-white">
         Property <span className="text-red-500 -ml-[2px]">Salahe</span>
       </span>
