@@ -1,12 +1,10 @@
 "use client";
-import { supabase } from "@/lib/supabase";
-import { NavbarMain } from "@/components/ui/header";
-import Footer from "@/components/ui/footer"
 import HeroSectionOne from "@/components/hero-section-demo-1";
-import { Button } from "@/components/ui/button";;
-import { ArrowRight } from "lucide-react";
-import HouseCard from "@/components/ui/house-card";
 import { Card } from "@/components/ui/card";
+import Footer from "@/components/ui/footer";
+import { NavbarMain } from "@/components/ui/header";
+import { supabase } from "@/lib/supabase";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 export default function Home() {
   type House = {
@@ -46,11 +44,46 @@ export default function Home() {
     <div className="flex flex-col min-h-screen pt-32 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <NavbarMain className="fixed top-0 mb-24" />
       <HeroSectionOne />
-      {/* 
+      {/*
       <Input type="file" className="hidden" ref={fileInput} onChange={handleFile} />
       */}
-      <div className="w-full flex justify-center gap-2 m-2 items-center"><Button className="w-[75%] max-w-3xl">Explore houses in you area<ArrowRight /></Button></div>
-      <Card className="relative mx-6 p-6 m-3 w-md max-w-2xl flex flex-col items-center justify-center overflow-hidden
+      {/*<div className="w-full flex justify-center gap-2 m-2 items-center">
+        <Button className="w-[75%] max-w-3xl">
+          Explore houses in you area
+          <ArrowRight />
+        </Button>
+      </div>*/}
+      <Card className="p-0 overflow-hidden w-full max-w-sm rounded-xl border shadow-md group">
+        {/* Image Container - No padding here, so it touches the edges */}
+        <div className="relative h-56 w-full">
+          <Image
+            src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
+            fill
+            alt="Modern luxury house"
+            className="object-cover"
+          />
+        </div>
+
+        {/* Text Container - Add padding 'p-5' here instead */}
+        <div className="p-5 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold text-gray-900">Haro</h3>
+            <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+              Active
+            </span>
+          </div>
+
+          <p className="text-sm text-gray-500">
+            A stunning view of modern architecture perfect for your next
+            getaway.
+          </p>
+
+          <button className="mt-4 w-full rounded-lg bg-black py-2 text-sm font-medium text-white hover:bg-gray-800">
+            View Details
+          </button>
+        </div>
+      </Card>
+      {/*<Card className="relative mx-6 p-6 m-3 w-md max-w-2xl flex flex-col items-center justify-center overflow-hidden
   bg-gray-900
   bg-[radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)]
   [background-size:14px_14px]">
@@ -58,8 +91,9 @@ export default function Home() {
         <span className="relative z-10 text-3xl font-bold leading-snug text-white">
           Top properties
         </span>
-      </Card>
-      <div className="grid gap-2 grid-cols-2 p-2 md:grid-cols-4">
+      </Card>*/}
+
+      {/*<div className="grid gap-2 grid-cols-2 p-2 md:grid-cols-4">
         {houses.map((house) => (
           <HouseCard
             key={house.id}
@@ -79,7 +113,7 @@ export default function Home() {
             imageUrl={house.image_url}
           />
         ))}
-      </div>
+      </div>*/}
       <Footer />
     </div>
   );

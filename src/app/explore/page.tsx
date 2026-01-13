@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { NavbarMain } from "@/components/ui/header";
-import HouseCard from "@/components/ui/house-card"
+import HouseCard from "@/components/ui/house-card";
 export default function Explore() {
   return (
     <div className="min-h-screen pt-16 px-6 md:px-20">
@@ -86,7 +86,6 @@ export default function Explore() {
           imageUrl="https://picsum.photos/400/300?random=5"
         />
       </div>
-
-    </div >
-  )
+    </div>
+  );
 }
