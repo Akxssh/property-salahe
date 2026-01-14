@@ -54,31 +54,43 @@ export default function HouseCard({
     // Outer Card container
     <Card className="max-w-[350px] overflow-hidden rounded-xl shadow-md bg-white">
       {/* Image section */}
-      <div className="relative">
-        <Image
-          src={imageUrl || "https://picsum.photos/1920/1080?random=1"}
-          width={1920}
-          height={1080}
-          className="w-full h-48 object-cover object-top -mt-8 scale-110"
-          alt="property image"
+      <div className="relative w-full aspect-video">
+        <iframe
+          className="w-full h-full -mt-6"
+          src="https://www.youtube.com/embed/8WzNOWa1fA8?si=owcPEYePTrAmnDlo"
+          title="YouTube video player"
+          frameBorder={0}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
         />
 
-        {/* Tags overlay on top-left of image */}
-        <div className="absolute top-2 left-2 flex gap-2  -mt-4">
-          {trending === true ? (
-            <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full flex justify-center items-center gap-1">
-              <TrendingUp />
-              Trending
+        {/* Tags overlay */}
+        <div className="absolute top-3 left-3 flex gap-2 flex-wrap z-10">
+          {trending === true && (
+            <span
+              className="bg-red-500 text-white text-xs
+          px-2 py-1 rounded-full flex justify-center items-center gap-1"
+            >
+              <TrendingUp className="w-3 h-3" /> Trending{" "}
             </span>
-          ) : null}
-          {newListing === true ? (
-            <span className="bg-black text-white text-xs px-2  flex justify-center items-center gap-1 py-1 rounded-full">
+          )}{" "}
+          {newListing === true && (
+            <span
+              className="bg-black text-white text-xs px-2 py-1
+          rounded-full flex justify-center items-center gap-1"
+            >
+              {" "}
               New Listing
             </span>
-          ) : null}
-          <span className="bg-white text-black text-xs px-2 py-1 rounded-full flex justify-center items-center gap-1">
+          )}{" "}
+          {/*<span
+            className="bg-white text-black text-xs px-2 py-1 mt-8
+          rounded-full flex justify-center items-center gap-1"
+          >
+            {" "}
             {financeType}
-          </span>
+          </span>*/}
         </div>
       </div>
 
