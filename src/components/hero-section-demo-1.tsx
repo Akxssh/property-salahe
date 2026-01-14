@@ -135,7 +135,7 @@ export default function HeroSectionOne() {
                   href="tel:+918073269676"
                   className="text-lg sm:text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2"
                 >
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Phone className="w-3 h-3 sm:w-5 sm:h-5" />
                   +91 80732-69676
                 </a>
               </div>
