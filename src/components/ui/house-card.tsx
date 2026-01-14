@@ -59,7 +59,7 @@ export default function HouseCard({
           src={imageUrl || "https://picsum.photos/1920/1080?random=1"}
           width={1920}
           height={1080}
-          className="w-full h-48 object-cover object-top -mt-6"
+          className="w-full h-48 object-cover object-top -mt-8 scale-110"
           alt="property image"
         />
 
