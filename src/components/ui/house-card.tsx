@@ -1,3 +1,4 @@
+"use client";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { Bed, Bath, Ruler, Phone, TrendingUp } from "lucide-react";
