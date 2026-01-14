@@ -108,7 +108,7 @@ export default function HeroSectionOne() {
             <div className="flex flex-col gap-2">
               <AnimatedGradientText>
                 <span className="text-base sm:text-lg font-bold">
-                  🏠 Housing Loan Promotions
+                  🏠 Housing Loans · Promotions
                 </span>
               </AnimatedGradientText>
               <div className="flex flex-wrap gap-2">
