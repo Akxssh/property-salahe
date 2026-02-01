@@ -63,55 +63,52 @@ export default function Home() {
     <div className="flex flex-col min-h-screen pt-32 sm:pb-32 pb-48 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <NavbarMain className="fixed top-0 mb-24" />
       <HeroSectionOne />
-
       <div className="flex flex-wrap gap-4 justify-center items-center p-4">
         {loading && (
           <div className="text-center py-12">
             <p className="text-gray-500">Loading properties...</p>
           </div>
         )}
-
         {error && (
           <div className="text-center py-12">
             <p className="text-red-500">Error: {error}</p>
           </div>
         )}
-
         {!loading && !error && properties.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500">No properties found</p>
           </div>
         )}
-
-        {!loading && !error && properties.length > 0 && (
-          <>
-            {properties.map((property) => (
-              <HouseCard
-                key={property.id}
-                id={property.id}
-                title={property.title}
-                subtitle={property.subtitle}
-                imageUrl={property.image_url}
-                youtubeVideoUrl={property.youtube_video_url}
-                useEmbedPlayer={property.use_embed_player}
-                name={property.name}
-                location={property.location}
-                price={property.price}
-                financeType={property.finance_type}
-                beds={property.beds}
-                baths={property.baths}
-                kitchens={property.kitchens}
-                sqft={property.sqft}
-                agentName={property.agent_name}
-                agentPhone={property.agent_phone}
-                newListing={property.new_listing}
-                trending={property.trending}
-              />
-            ))}
-          </>
-        )}
+        <div className="grid md:grid-cols-2 grid-rows-2 gap-4 items-start">
+          {!loading && !error && properties.length > 0 && (
+            <>
+              {properties.map((property) => (
+                <HouseCard
+                  key={property.id}
+                  id={property.id}
+                  title={property.title}
+                  subtitle={property.subtitle}
+                  imageUrl={property.image_url}
+                  youtubeVideoUrl={property.youtube_video_url}
+                  useEmbedPlayer={property.use_embed_player}
+                  name={property.name}
+                  location={property.location}
+                  price={property.price}
+                  financeType={property.finance_type}
+                  beds={property.beds}
+                  baths={property.baths}
+                  kitchens={property.kitchens}
+                  sqft={property.sqft}
+                  agentName={property.agent_name}
+                  agentPhone={property.agent_phone}
+                  newListing={property.new_listing}
+                  trending={property.trending}
+                />
+              ))}
+            </>
+          )}{" "}
+        </div>
       </div>
-
       <Footer className="absolute bottom-0 left-0 right-0" />
     </div>
   );

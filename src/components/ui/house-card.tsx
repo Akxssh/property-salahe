@@ -32,6 +32,7 @@ type Props = {
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function HouseCard({
   youtubeVideoUrl,
@@ -80,9 +81,16 @@ export default function HouseCard({
       window.location.href = `tel:${agentPhone}`;
     }
   };
+  const handleSubtitleCollapse = () => {
+    CollapseSubTitle(!isSubTitleCollpase);
+  };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const subTitleWordLimitBeforeCollapse = 200;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isSubTitleCollpase, CollapseSubTitle] = useState(true);
   return (
-    <Card className="max-w-[350px] min-w-[300px] overflow-hidden rounded-xl shadow-md bg-white">
+    <Card className="max-w-[350px] min-w-[350px] min-h-0 overflow-hidden rounded-xl shadow-md bg-white">
       {/* Video/Image section */}
       <div className="relative w-full aspect-video">
         {useEmbedPlayer && youtubeVideoUrl ? (
@@ -106,7 +114,7 @@ export default function HouseCard({
 
         {/* Tags overlay */}
         {(trending || newListing) && (
-          <div className="absolute top-3 left-3 flex gap-2 flex-wrap z-10">
+          <div className="absolute bottom-0 -mb-4 left-3 flex gap-2 flex-wrap z-10">
             {trending && (
               <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full flex justify-center items-center gap-1">
                 <TrendingUp className="w-3 h-3" /> Trending
@@ -125,39 +133,59 @@ export default function HouseCard({
       <div className="p-4 space-y-2 flex flex-col h-full">
         <h2 className="text-lg font-semibold">{title}</h2>
 
-        {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+        {subtitle && (
+          <>
+            <div className="flex flex-row">
+              <p className="text-sm text-gray-500">
+                {isSubTitleCollpase
+                  ? subtitle
+                      .split("")
+                      .slice(0, subTitleWordLimitBeforeCollapse)
+                      .join("")
+                  : subtitle}
+                <Button
+                  onClick={handleSubtitleCollapse}
+                  className="inline-block   rounded-xl scale-75 py-1 text-sm font-medium  bg-gray-300 hover:bg-gray-400 text-gray-800 transition-colors"
+                >
+                  {isSubTitleCollpase ? "Show more" : "Show less"}
+                </Button>
+              </p>
+            </div>
+          </>
+        )}
 
         {/* Price */}
-        {price && <h1 className="text-2xl font-bold">₹{formatINR(price)}</h1>}
+        {/*{price && <h1 className="text-2xl font-bold">₹{formatINR(price)}</h1>}*/}
 
         {/* Location */}
-        {location && <p className="text-sm text-gray-500">{location}</p>}
+        {/*{location && <p className="text-sm text-gray-500">{location}</p>}*/}
 
         {/* Beds, Baths, Kitchens, Sqft */}
-        {(beds || baths || kitchens || sqft) && (
+        {/*{(beds || baths || kitchens || sqft) && (*/}
+        {
           <div className="flex gap-4 text-sm text-gray-600 mt-1">
-            {beds !== undefined && (
+            {/*{beds !== undefined && (
               <div className="flex items-center gap-1">
                 <Bed className="w-4 h-4" /> {beds}
               </div>
-            )}
-            {baths !== undefined && (
+            )}*/}
+            {/*{baths !== undefined && (
               <div className="flex items-center gap-1">
                 <Bath className="w-4 h-4" /> {baths}
               </div>
-            )}
-            {kitchens !== undefined && (
+            )}*/}
+            {/*{kitchens !== undefined && (
               <div className="flex items-center gap-1">
                 <CookingPot className="w-4 h-4" /> {kitchens}
               </div>
-            )}
-            {sqft !== undefined && (
+            )}*/}
+            {/*{sqft !== undefined && (
               <div className="flex items-center gap-1">
                 <Ruler className="w-4 h-4" /> {sqft.toLocaleString()} sqft
               </div>
-            )}
+            )}*/}
           </div>
-        )}
+        }
 
         {/* Agent info and Contact button */}
         {(agentName || agentPhone) && (
@@ -191,7 +219,7 @@ export default function HouseCard({
         {/* Action buttons: Watch Tour & View Details */}
         {(youtubeVideoUrl || id) && (
           <div className="flex flex-col w-full items-center justify-center gap-2 -mb-6 mt-6">
-            {id && (
+            {/*{id && (
               <Button
                 variant="outline"
                 className="flex-1 w-full rounded-md py-2 text-sm"
@@ -201,7 +229,7 @@ export default function HouseCard({
               >
                 View Details
               </Button>
-            )}
+            )}*/}
             {youtubeVideoUrl && (
               <RainbowButton
                 onClick={() => window.open(youtubeVideoUrl, "_blank")}

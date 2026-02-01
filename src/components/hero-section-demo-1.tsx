@@ -11,6 +11,7 @@ import { Phone, Sparkles, TrendingUp } from "lucide-react";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import Textarea from "@/components/ui/textarea";
 
 export default function HeroSectionOne() {
   const [open, setOpen] = useState(false);
@@ -54,6 +55,9 @@ export default function HeroSectionOne() {
         building, helping you reach your goals faster and more efficiently than
         ever before.
       </motion.p>
+      <div className="">
+        <Input className="" />
+      </div>
       <motion.div
         initial={{
           opacity: 0,
