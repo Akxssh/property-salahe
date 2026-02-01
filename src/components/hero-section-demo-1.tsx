@@ -12,6 +12,7 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import Textarea from "@/components/ui/textarea";
+import { Search } from "lucide-react";
 
 export default function HeroSectionOne() {
   const [open, setOpen] = useState(false);
@@ -55,8 +56,9 @@ export default function HeroSectionOne() {
         building, helping you reach your goals faster and more efficiently than
         ever before.
       </motion.p>
-      <div className="">
-        <Input className="" />
+      <div className="flex justify-center items-center">
+        <Input className="-mr-8" />
+        <Search />
       </div>
       <motion.div
         initial={{
