@@ -90,7 +90,7 @@ export default function HouseCard({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isSubTitleCollpase, CollapseSubTitle] = useState(true);
   return (
-    <Card className="max-w-[350px] min-w-[350px] min-h-0 overflow-hidden rounded-xl shadow-md bg-white">
+    <Card className="max-w-[350px] min-w-[300px] min-h-0 overflow-hidden rounded-xl shadow-md bg-white">
       {/* Video/Image section */}
       <div className="relative w-full aspect-video">
         {useEmbedPlayer && youtubeVideoUrl ? (

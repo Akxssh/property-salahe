@@ -25,6 +25,7 @@ import { useEffect, useState, useMemo } from "react";
 import HouseCard from "@/components/ui/house-card";
 import { Input } from "@/components/ui/input";
 import { Home as HomeIcon } from "lucide-react";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export default function Home() {
   type Property = {
@@ -90,7 +91,6 @@ export default function Home() {
         p.name?.toLowerCase().includes(searchLower),
     );
   }, [search, properties]);
-
   return (
     <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
       <div className="flex min-h-screen w-full">
@@ -102,13 +102,7 @@ export default function Home() {
                 Property Salahe
               </h2>
               {/* Close button */}
-              <button
-                onClick={() => setSidebarOpen(false)}
-                className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Close sidebar"
-              >
-                <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              </button>
+              <SidebarCloseButton></SidebarCloseButton>
             </div>
           </SidebarHeader>
 
@@ -399,5 +393,14 @@ export default function Home() {
         </div>
       </div>
     </SidebarProvider>
+  );
+}
+
+function SidebarCloseButton() {
+  const { toggleSidebar } = useSidebar();
+  return (
+    <button onClick={toggleSidebar}>
+      <X />
+    </button>
   );
 }
