@@ -17,14 +17,14 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { Badge } from "@/components/ui/badge";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Search, Phone, Building2, MapPin, Menu } from "lucide-react";
+import { Search, Phone, Building2, MapPin, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Footer from "@/components/ui/footer";
-import { NavbarMain } from "@/components/ui/header";
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState, useMemo } from "react";
 import HouseCard from "@/components/ui/house-card";
 import { Input } from "@/components/ui/input";
+import { Home as HomeIcon } from "lucide-react";
 
 export default function Home() {
   type Property = {
@@ -53,6 +53,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -91,15 +92,23 @@ export default function Home() {
   }, [search, properties]);
 
   return (
-    <SidebarProvider>
+    <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
       <div className="flex min-h-screen w-full">
         {/* SIDEBAR */}
         <Sidebar>
           <SidebarHeader>
-            <div className="px-4 py-2">
+            <div className="flex items-center justify-between px-4 py-2">
               <h2 className="text-lg font-bold text-slate-800 dark:text-white">
                 Property Salahe
               </h2>
+              {/* Close button */}
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Close sidebar"
+              >
+                <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              </button>
             </div>
           </SidebarHeader>
 
@@ -108,8 +117,8 @@ export default function Home() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="#properties">
-                      <Home className="w-4 h-4" />
+                    <a href="#properties" onClick={() => setSidebarOpen(false)}>
+                      <HomeIcon className="w-4 h-4" />
                       <span>Browse Properties</span>
                     </a>
                   </SidebarMenuButton>
@@ -117,7 +126,7 @@ export default function Home() {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="#loans">
+                    <a href="#loans" onClick={() => setSidebarOpen(false)}>
                       <Building2 className="w-4 h-4" />
                       <span>Housing Loans</span>
                     </a>
@@ -126,7 +135,7 @@ export default function Home() {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="#contact">
+                    <a href="#contact" onClick={() => setSidebarOpen(false)}>
                       <Phone className="w-4 h-4" />
                       <span>Contact Us</span>
                     </a>
@@ -135,7 +144,7 @@ export default function Home() {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="#locations">
+                    <a href="#locations" onClick={() => setSidebarOpen(false)}>
                       <MapPin className="w-4 h-4" />
                       <span>Locations</span>
                     </a>
@@ -146,31 +155,39 @@ export default function Home() {
           </SidebarContent>
 
           <SidebarFooter>
-            <div className="px-4 py-2 text-sm text-gray-500">
-              © 2024 Property Salahe
+            <div className="px-4 py-3 text-sm text-gray-500">
+              © 2025 Property Salahe
             </div>
           </SidebarFooter>
         </Sidebar>
 
         {/* MAIN CONTENT */}
-        <div className="flex-1 flex flex-col">
-          {/* FIXED HEADER */}
+        <div className="flex-1 flex flex-col min-w-0">
+          {/* SINGLE TOP BAR — just the hamburger + logo, no duplicate nav */}
           <header className="sticky top-0 z-50 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
-            <div className="flex items-center gap-4 px-4 py-3">
-              <SidebarTrigger>
-                <Menu className="w-5 h-5" />
-              </SidebarTrigger>
-              <NavbarMain />
+            <div className="flex items-center gap-3 px-4 py-3">
+              <SidebarTrigger />
+              {/* Compact inline logo */}
+              <a href="/" className="flex items-center gap-1.5">
+                <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 dark:bg-white">
+                  <span className="text-xs font-bold text-white dark:text-slate-800">
+                    PS
+                  </span>
+                </span>
+                <span className="text-base font-semibold text-slate-800 dark:text-white">
+                  Property<span className="text-purple-600">Salahe</span>
+                </span>
+              </a>
             </div>
           </header>
 
           {/* PAGE CONTENT */}
           <main className="flex-1 bg-zinc-50 dark:bg-black">
             {/* HERO SECTION */}
-            <section className="container mx-auto px-4 py-12 md:py-20">
-              <div className="max-w-4xl mx-auto text-center">
+            <section className="w-full px-4 py-12 md:py-20">
+              <div className="max-w-3xl mx-auto text-center">
                 {/* Animated Headline */}
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-700 dark:text-slate-300 mb-6">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-700 dark:text-slate-300 mb-6 leading-tight">
                   {"Find your property in days, not years"
                     .split(" ")
                     .map((word, index) => (
@@ -208,7 +225,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 1 }}
-                  className="max-w-2xl mx-auto mb-8"
+                  className="w-full mb-8"
                 >
                   <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -226,7 +243,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 1.2 }}
-                  className="max-w-2xl mx-auto"
+                  className="w-full"
                   id="loans"
                 >
                   <Card className="relative overflow-hidden p-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-200">
@@ -280,98 +297,100 @@ export default function Home() {
             </section>
 
             {/* PROPERTIES SECTION */}
-            <section className="container mx-auto px-4 py-12" id="properties">
-              {/* Section Header */}
-              <div className="mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white mb-2">
-                  Available Properties
-                </h2>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {filteredProperties.length} properties found
-                  {search && ` for "${search}"`}
-                </p>
-              </div>
-
-              {/* Loading State */}
-              {loading && (
-                <div className="text-center py-20">
-                  <div className="inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                  <p className="text-gray-500 mt-4">Loading properties...</p>
-                </div>
-              )}
-
-              {/* Error State */}
-              {error && (
-                <div className="text-center py-20">
-                  <div className="inline-block p-4 bg-red-100 rounded-full mb-4">
-                    <svg
-                      className="w-8 h-8 text-red-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-red-500 font-medium">Error: {error}</p>
-                </div>
-              )}
-
-              {/* Empty State */}
-              {!loading && !error && filteredProperties.length === 0 && (
-                <div className="text-center py-20">
-                  <div className="inline-block p-4 bg-gray-100 rounded-full mb-4">
-                    <Search className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <p className="text-gray-500 font-medium">
-                    {search
-                      ? "No properties found matching your search"
-                      : "No properties available"}
+            <section className="w-full px-4 py-12" id="properties">
+              <div className="max-w-6xl mx-auto">
+                {/* Section Header */}
+                <div className="mb-8">
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white mb-2">
+                    Available Properties
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {filteredProperties.length} properties found
+                    {search && ` for "${search}"`}
                   </p>
-                  {search && (
-                    <button
-                      onClick={() => setSearch("")}
-                      className="mt-4 text-blue-500 hover:underline"
-                    >
-                      Clear search
-                    </button>
-                  )}
                 </div>
-              )}
 
-              {/* Properties Grid */}
-              {!loading && !error && filteredProperties.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {filteredProperties.map((property) => (
-                    <HouseCard
-                      key={property.id}
-                      id={property.id}
-                      title={property.title}
-                      subtitle={property.subtitle}
-                      imageUrl={property.image_url}
-                      youtubeVideoUrl={property.youtube_video_url}
-                      useEmbedPlayer={property.use_embed_player}
-                      name={property.name}
-                      location={property.location}
-                      price={property.price}
-                      financeType={property.finance_type}
-                      beds={property.beds}
-                      baths={property.baths}
-                      kitchens={property.kitchens}
-                      sqft={property.sqft}
-                      agentName={property.agent_name}
-                      agentPhone={property.agent_phone}
-                      newListing={property.new_listing}
-                      trending={property.trending}
-                    />
-                  ))}
-                </div>
-              )}
+                {/* Loading State */}
+                {loading && (
+                  <div className="text-center py-20">
+                    <div className="inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-gray-500 mt-4">Loading properties...</p>
+                  </div>
+                )}
+
+                {/* Error State */}
+                {error && (
+                  <div className="text-center py-20">
+                    <div className="inline-block p-4 bg-red-100 rounded-full mb-4">
+                      <svg
+                        className="w-8 h-8 text-red-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-red-500 font-medium">Error: {error}</p>
+                  </div>
+                )}
+
+                {/* Empty State */}
+                {!loading && !error && filteredProperties.length === 0 && (
+                  <div className="text-center py-20">
+                    <div className="inline-block p-4 bg-gray-100 rounded-full mb-4">
+                      <Search className="w-8 h-8 text-gray-400" />
+                    </div>
+                    <p className="text-gray-500 font-medium">
+                      {search
+                        ? "No properties found matching your search"
+                        : "No properties available"}
+                    </p>
+                    {search && (
+                      <button
+                        onClick={() => setSearch("")}
+                        className="mt-4 text-blue-500 hover:underline"
+                      >
+                        Clear search
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* Properties Grid */}
+                {!loading && !error && filteredProperties.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {filteredProperties.map((property) => (
+                      <HouseCard
+                        key={property.id}
+                        id={property.id}
+                        title={property.title}
+                        subtitle={property.subtitle}
+                        imageUrl={property.image_url}
+                        youtubeVideoUrl={property.youtube_video_url}
+                        useEmbedPlayer={property.use_embed_player}
+                        name={property.name}
+                        location={property.location}
+                        price={property.price}
+                        financeType={property.finance_type}
+                        beds={property.beds}
+                        baths={property.baths}
+                        kitchens={property.kitchens}
+                        sqft={property.sqft}
+                        agentName={property.agent_name}
+                        agentPhone={property.agent_phone}
+                        newListing={property.new_listing}
+                        trending={property.trending}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
             </section>
           </main>
 
