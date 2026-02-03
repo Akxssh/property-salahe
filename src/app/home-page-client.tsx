@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import HeroSectionOne from "@/components/hero-section-demo-1";
-import { NavbarMain } from "@/components/ui/header";
+import Base from "@/components/ui/base";
 
 export default function HomePageClient({ data }: { data: any[] }) {
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -56,7 +57,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -254,6 +255,14 @@ export default function Home() {
                         <Input
                           placeholder="Search properties by title, location, or name..."
                           value={search}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              // do something when Enter is pressed
+                              router.push(
+                                `/explore?query=${encodeURIComponent(search)}`,
+                              );
+                            }
+                          }}
                           onChange={(e) => setSearch(e.target.value)}
                           className="pl-12 pr-4 py-6 text-lg shadow-lg border-2 focus:border-blue-500 bg-white/90 backdrop-blur-sm"
                         />
