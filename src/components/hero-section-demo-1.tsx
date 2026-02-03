@@ -12,10 +12,13 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import Textarea from "@/components/ui/textarea";
-import { Search } from "lucide-react";
 
 export default function HeroSectionOne() {
   const [open, setOpen] = useState(false);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   return (
     <div className="px-4 py-10 md:py-20">
       <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-700 md:text-4xl lg:text-7xl dark:text-slate-300">
@@ -56,105 +59,6 @@ export default function HeroSectionOne() {
         building, helping you reach your goals faster and more efficiently than
         ever before.
       </motion.p>
-      <div className="flex justify-center items-center">
-        <Input className="-mr-8" />
-        <Search />
-      </div>
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        transition={{
-          duration: 0.3,
-          delay: 1,
-        }}
-        className="relative z-10 mt-8 flex flex-row flex-wrap items-center justify-center gap-4"
-      >
-        {/*<div className="flex gap-1 w-full mx-4 max-w-4xl  rounded-md bg-transparent justify-center items-start">
-          <div className="">
-            <Input
-              placeholder="Search property..."
-              className="shadow-md p-4 max-w-xl"
-              onFocus={() => setOpen(true)}
-              onBlur={() => setOpen(false)}
-            />
-            {open ? <Card className="w-full p-4 mt-1 rounded-md"></Card> : ""}
-          </div>
-          <Button
-            onFocus={() => setOpen(true)}
-            onBlur={() => setOpen(false)}
-            className="shadow-md"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-search-icon lucide-search"
-            >
-              <path d="M21 21L16.66 16.66" />
-              <circle cx="11" cy="11" r="8" />
-            </svg>
-            Search
-          </Button>
-        </div>*/}
-        <Card className="relative overflow-hidden p-4 sm:p-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-200">
-          <BorderBeam size={250} duration={12} delay={9} />
-
-          <div className="flex flex-col gap-4">
-            {/* Top - Promo text */}
-            <div className="flex flex-col gap-2">
-              <AnimatedGradientText>
-                <span className="text-base sm:text-lg font-bold">
-                  🏠 Housing Loans · Promotions
-                </span>
-              </AnimatedGradientText>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="text-xs">
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  Limited Offer
-                </Badge>
-                <Badge
-                  variant="outline"
-                  className="text-xs bg-green-50 text-green-700 border-green-300"
-                >
-                  80-85% Funding
-                </Badge>
-              </div>
-            </div>
-
-            {/* Bottom - Phone + Button */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex flex-col">
-                <span className="text-xs text-gray-600 font-medium">
-                  Call us now
-                </span>
-                <a
-                  href="tel:+918073269676"
-                  className="text-sm sm:text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2"
-                >
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                  +91 80732-69676
-                </a>
-              </div>
-
-              <ShimmerButton className="shadow-lg shrink-0">
-                <span className="whitespace-nowrap text-center text-sm font-medium leading-none tracking-tight text-white px-2">
-                  Apply Now
-                </span>
-              </ShimmerButton>
-            </div>
-          </div>
-        </Card>
-      </motion.div>
       {/*
       <motion.div
         initial={{
