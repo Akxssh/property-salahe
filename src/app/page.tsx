@@ -26,6 +26,7 @@ import HouseCard from "@/components/ui/house-card";
 import { Input } from "@/components/ui/input";
 import { Home as HomeIcon } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
+import Image from "next/image";
 
 export default function Home() {
   type Property = {
@@ -91,6 +92,7 @@ export default function Home() {
         p.name?.toLowerCase().includes(searchLower),
     );
   }, [search, properties]);
+
   return (
     <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
       <div className="flex min-h-screen w-full">
@@ -101,7 +103,6 @@ export default function Home() {
               <h2 className="text-lg font-bold text-slate-800 dark:text-white">
                 Property Salahe
               </h2>
-              {/* Close button */}
               <SidebarCloseButton></SidebarCloseButton>
             </div>
           </SidebarHeader>
@@ -157,11 +158,10 @@ export default function Home() {
 
         {/* MAIN CONTENT */}
         <div className="flex-1 flex flex-col min-w-0">
-          {/* SINGLE TOP BAR — just the hamburger + logo, no duplicate nav */}
-          <header className="sticky top-0 z-50 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
+          {/* SINGLE TOP BAR — sticky, not fixed, so it stays in the sidebar's flow */}
+          <header className="fixed mb-24 w-full top-0 z-50 bg-white/30 dark:bg-black/30 border-b border-gray-200/30 dark:border-gray-800/30 backdrop-blur-md">
             <div className="flex items-center gap-3 px-4 py-3">
               <SidebarTrigger />
-              {/* Compact inline logo */}
               <a href="/" className="flex items-center gap-1.5">
                 <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 dark:bg-white">
                   <span className="text-xs font-bold text-white dark:text-slate-800">
@@ -176,119 +176,163 @@ export default function Home() {
           </header>
 
           {/* PAGE CONTENT */}
-          <main className="flex-1 bg-zinc-50 dark:bg-black">
-            {/* HERO SECTION */}
-            <section className="w-full px-4 py-12 md:py-20">
-              <div className="max-w-3xl mx-auto text-center">
-                {/* Animated Headline */}
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-700 dark:text-slate-300 mb-6 leading-tight">
-                  {"Find your property in days, not years"
-                    .split(" ")
-                    .map((word, index) => (
-                      <motion.span
-                        key={index}
-                        initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: index * 0.1,
-                          ease: "easeInOut",
-                        }}
-                        className="inline-block mr-2"
-                      >
-                        {word}
-                      </motion.span>
-                    ))}
-                </h1>
+          <main className="flex-1 bg-zinc-50 dark:bg-black pt-[44px]">
+            {/* ─── GLASSMORPHISM HERO ─── */}
+            <section className="relative w-full">
+              {/* 1. Background image — sets the height for the whole hero block */}
+              <div className="relative w-full" style={{ height: "680px" }}>
+                <Image
+                  src="/website_dad_suggestion_bg.jpeg"
+                  alt="Hero banner"
+                  fill
+                  priority
+                  sizes="100vw"
+                  style={{ objectFit: "cover" }}
+                />
+                {/* gradient overlay for glass contrast */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
+              </div>
 
-                {/* Subtitle */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.8 }}
-                  className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-2xl mx-auto"
-                >
-                  With property{" "}
-                  <span className="text-red-400 font-semibold">salahe</span>,
-                  you can launch your property in days, not years. Say goodbye
-                  to long delays and endless paperwork.
-                </motion.p>
-
-                {/* Search Bar */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 1 }}
-                  className="w-full mb-8"
-                >
-                  <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <Input
-                      placeholder="Search properties by title, location, or name..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="pl-12 pr-4 py-6 text-lg shadow-lg border-2 focus:border-blue-500"
+              {/* 2. Glass content — absolutely over the image, centered */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-4 py-8">
+                <div className="w-full max-w-2xl">
+                  {/* ── Glass shell ── */}
+                  <div
+                    className="relative rounded-2xl overflow-hidden"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.10) 100%)",
+                      backdropFilter: "blur(20px)",
+                      WebkitBackdropFilter: "blur(20px)",
+                      border: "1px solid rgba(255,255,255,0.35)",
+                      boxShadow:
+                        "0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.25)",
+                    }}
+                  >
+                    {/* subtle highlight stripe at top edge */}
+                    <div
+                      className="absolute top-0 left-0 right-0 h-px"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
+                      }}
                     />
-                  </div>
-                </motion.div>
 
-                {/* Loan Promo Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 1.2 }}
-                  className="w-full"
-                  id="loans"
-                >
-                  <Card className="relative overflow-hidden p-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-200">
-                    <BorderBeam size={250} duration={12} delay={9} />
+                    <div className="relative z-10 p-6 md:p-8 flex flex-col items-center gap-4">
+                      {/* Animated Headline */}
+                      <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight text-center">
+                        {"Find your property in days, not years"
+                          .split(" ")
+                          .map((word, index) => (
+                            <motion.span
+                              key={index}
+                              initial={{
+                                opacity: 0,
+                                filter: "blur(4px)",
+                                y: 10,
+                              }}
+                              animate={{
+                                opacity: 1,
+                                filter: "blur(0px)",
+                                y: 0,
+                              }}
+                              transition={{
+                                duration: 0.3,
+                                delay: index * 0.1,
+                                ease: "easeInOut",
+                              }}
+                              className="inline-block mr-2"
+                            >
+                              {word}
+                            </motion.span>
+                          ))}
+                      </h1>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                      {/* Left Side - Promo Info */}
-                      <div className="flex flex-col gap-3 text-left">
-                        <AnimatedGradientText>
-                          <span className="text-lg font-bold">
-                            🏠 Housing Loans · Limited Offer
-                          </span>
-                        </AnimatedGradientText>
-
-                        <div className="flex flex-wrap gap-2">
-                          <Badge variant="secondary" className="text-xs">
-                            Limited Time
-                          </Badge>
-                          <Badge
-                            variant="outline"
-                            className="text-xs bg-green-50 text-green-700 border-green-300"
-                          >
-                            80-85% Funding
-                          </Badge>
-                        </div>
-
-                        <div className="flex flex-col mt-2">
-                          <span className="text-xs text-gray-600 font-medium">
-                            Call us now
-                          </span>
-                          <a
-                            href="tel:+918073269676"
-                            className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2"
-                          >
-                            <Phone className="w-5 h-5" />
-                            +91 80732-69676
-                          </a>
-                        </div>
+                      {/* Search input */}
+                      <div className="relative w-full mt-2">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
+                        <Input
+                          placeholder="Search properties by title, location, or name..."
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          className="pl-12 pr-4 py-6 text-lg shadow-lg border-2 focus:border-blue-500 bg-white/90 backdrop-blur-sm"
+                        />
                       </div>
 
-                      {/* Right Side - CTA Button */}
-                      <ShimmerButton className="shadow-lg shrink-0">
-                        <span className="whitespace-nowrap text-center text-sm font-medium leading-none tracking-tight text-white px-4 py-2">
-                          Apply Now
+                      {/* Subtitle */}
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.8 }}
+                        className="text-base text-white/90 drop-shadow text-center max-w-xl"
+                      >
+                        With property{" "}
+                        <span className="text-red-300 font-semibold">
+                          salahe
                         </span>
-                      </ShimmerButton>
+                        , you can launch your property in days, not years. Say
+                        goodbye to long delays and endless paperwork.
+                      </motion.p>
                     </div>
-                  </Card>
-                </motion.div>
+                  </div>
+
+                  {/* ── Loan Promo Card ── */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 1.2 }}
+                    className="w-full mt-4"
+                    id="loans"
+                  >
+                    <Card className="relative overflow-hidden p-5 bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-200 shadow-lg">
+                      <BorderBeam size={250} duration={12} delay={9} />
+
+                      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="flex flex-col gap-3 text-left">
+                          <AnimatedGradientText>
+                            <span className="text-lg font-bold">
+                              🏠 Housing Loans · Limited Offer
+                            </span>
+                          </AnimatedGradientText>
+
+                          <div className="flex flex-wrap gap-2">
+                            <Badge variant="secondary" className="text-xs">
+                              Limited Time
+                            </Badge>
+                            <Badge
+                              variant="outline"
+                              className="text-xs bg-green-50 text-green-700 border-green-300"
+                            >
+                              80-85% Funding
+                            </Badge>
+                          </div>
+
+                          <div className="flex flex-col mt-1">
+                            <span className="text-xs text-gray-600 font-medium">
+                              Call us now
+                            </span>
+                            <a
+                              href="tel:+918073269676"
+                              className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2"
+                            >
+                              <Phone className="w-5 h-5" />
+                              +91 80732-69676
+                            </a>
+                          </div>
+                        </div>
+
+                        <ShimmerButton className="shadow-lg shrink-0">
+                          <span className="whitespace-nowrap text-center text-sm font-medium leading-none tracking-tight text-white px-4 py-2">
+                            Apply Now
+                          </span>
+                        </ShimmerButton>
+                      </div>
+                    </Card>
+                  </motion.div>
+                </div>
               </div>
             </section>
+            {/* ─── END HERO ─── */}
 
             {/* PROPERTIES SECTION */}
             <section className="w-full px-4 py-12" id="properties">
