@@ -13,7 +13,8 @@ import { motion } from "motion/react";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Home } from "lucide-react";
 import Link from "next/link";
 
-export default function AuthPage() {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default function () {
   const router = useRouter();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");

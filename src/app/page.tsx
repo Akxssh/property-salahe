@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Header from "@/components/ui/header";
 import {
   Sidebar,
   SidebarContent,
@@ -28,6 +29,8 @@ import { Input } from "@/components/ui/input";
 import { Home as HomeIcon } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   type Property = {
@@ -160,24 +163,9 @@ export default function Home() {
         {/* MAIN CONTENT */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* SINGLE TOP BAR — sticky, not fixed, so it stays in the sidebar's flow */}
-          <header className="fixed mb-24 w-full top-0 z-50 bg-white/30 dark:bg-black/30 border-b border-gray-200/30 dark:border-gray-800/30 backdrop-blur-md">
-            <div className="flex items-center gap-3 px-4 py-3">
-              <SidebarTrigger />
-              <a href="/" className="flex items-center gap-1.5">
-                <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-slate-800 dark:bg-white">
-                  <span className="text-xs font-bold text-white dark:text-slate-800">
-                    PS
-                  </span>
-                </span>
-                <span className="text-base font-semibold text-slate-800 dark:text-white">
-                  Property<span className="text-purple-600">Salahe</span>
-                </span>
-              </a>
-            </div>
-          </header>
-
+          <Header />
           {/* PAGE CONTENT */}
-          <main className="flex-1 bg-zinc-50 dark:bg-black pt-[44px]">
+          <main className="flex-1 bg-zinc-50 dark:bg-black pt-14">
             {/* ─── GLASSMORPHISM HERO ─── */}
             <section className="relative w-full">
               {/* 1. Background image — sets the height for the whole hero block */}
@@ -191,7 +179,7 @@ export default function Home() {
                   style={{ objectFit: "cover" }}
                 />
                 {/* gradient overlay for glass contrast */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
+                <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-black/50" />
               </div>
 
               {/* 2. Glass content — absolutely over the image, centered */}
@@ -293,7 +281,7 @@ export default function Home() {
                     className="w-full mt-4"
                     id="loans"
                   >
-                    <Card className="relative overflow-hidden p-5 bg-gradient-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-200 shadow-lg">
+                    <Card className="relative overflow-hidden p-5 bg-linear-to-br from-blue-50 via-white to-purple-50 border-2 border-blue-200 shadow-lg">
                       <BorderBeam size={250} duration={12} delay={9} />
 
                       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -437,6 +425,12 @@ export default function Home() {
                     ))}
                   </div>
                 )}
+                <Button
+                  className="w-full mt-4"
+                  onClick={() => router.push("/explore")}
+                >
+                  Explore more <ArrowRight />
+                </Button>
               </div>
             </section>
           </main>

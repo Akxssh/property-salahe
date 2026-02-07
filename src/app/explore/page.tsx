@@ -54,7 +54,7 @@ const SORT_LABELS: Record<SortOption, string> = {
 // ─── Reusable sub-components ────────────────────────────────────────────────
 function SectionDivider({ label }: { label: string }) {
   return (
-    <div className="py-3">
+    <div className="py-3 flex flex-col w-auto flex-wrap">
       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
         {label}
       </p>
@@ -462,7 +462,7 @@ export default function Explore() {
 
   // ─────────────────────────────────────────────────────── SIDEBAR CONTENT ────
   const SidebarContent = (
-    <div className="flex flex-col gap-1 px-4 py-3">
+    <div className="flex flex-col gap-1 px-4 py-3  w-full  flex-wrap h-full">
       {/* Price */}
       <SectionDivider label="Price Range (₹)" />
       <RangeInputPair
@@ -476,7 +476,10 @@ export default function Explore() {
       />
 
       {/* Location */}
-      <SectionDivider label="Location" />
+      <SectionDivider
+        className="w-auto flex flex-col flex-wrap"
+        label="Location"
+      />
       {locations.map((loc) => (
         <CheckboxRow
           key={loc}
